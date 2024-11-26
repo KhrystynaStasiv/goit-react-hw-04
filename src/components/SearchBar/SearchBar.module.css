@@ -1,0 +1,29 @@
+.container {
+  position: relative;
+  width: 1140px;
+}
+.wrapper {
+  position: absolute;
+  width: 100%;
+  background-color: #535bf2;
+}
+.searchField {
+  width: 360px;
+  padding: 10px 30px 10px 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.searchField::placeholder {
+  font-size: 16px;
+  color: #888;
+}
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+/* .icon {
+  position: absolute;
+  top: 32%;
+  color: rgb(69, 68, 68);
+  pointer-events: none;
+} */
