@@ -12,7 +12,6 @@ const SearchBar = ({ onChangeQuery }) => {
       <header className={css.wrapper}>
         <form className={css.inputWrapper} onSubmit={handleSubmit}>
           <input
-            name="query"
             className={css.searchField}
             type="text"
             autoComplete="off"

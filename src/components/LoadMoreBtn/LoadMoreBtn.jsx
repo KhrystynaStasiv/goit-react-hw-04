@@ -1,7 +1,7 @@
 const LoadMoreBtn = () => {
   return (
     <div>
-      <buttton type="click">Load more</buttton>
+      <button type="click">Load more</button>
     </div>
   );
 };

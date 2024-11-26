@@ -9,13 +9,14 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 function App() {
   const [images, setImages] = useState([]);
-  const [isloading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchImagesData = async () => {
+      if (!query) return;
       try {
         setIsLoading(true);
         setIsError(false);
@@ -31,8 +32,9 @@ function App() {
     fetchImagesData();
   }, [query, page]);
 
-  const handleChnageQuery = (query) => {
-    setQuery(query);
+  const handleChnageQuery = (newQuery) => {
+    setQuery(newQuery);
+    setPage(1);
   };
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
@@ -41,10 +43,12 @@ function App() {
   return (
     <div>
       <SearchBar onChangeQuery={handleChnageQuery} />
-      {isloading && <Loader />}
+      {isLoading && <Loader />}
       <ImageGallery img={images} />
       {isError && <ErrorMessage />}
-      <LoadMoreBtn onClick={handleLoadMore} />
+      {!isLoading && images.length > 0 && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
     </div>
   );
 }
