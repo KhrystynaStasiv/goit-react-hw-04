@@ -1,12 +1,7 @@
 import css from "./SearchBar.module.css";
 import { CiSearch } from "react-icons/ci";
 
-const SearchBar = ({ onChangeQuery }) => {
-  const handleSubmit = (values, options) => {
-    console.log(values);
-    options.resetForm;
-    onChangeQuery(values.query);
-  };
+const SearchBar = ({ handleSubmit }) => {
   return (
     <section className={css.container}>
       <header className={css.wrapper}>

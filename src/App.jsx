@@ -3,7 +3,7 @@ import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import { fetchImages } from "../unsplash.api";
+import { fetchImages } from "./unsplash.api";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
@@ -20,8 +20,10 @@ function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const response = await fetchImages(query, page);
-        setImages(response);
+        const response = await fetchImages(query, page, 12);
+        const newImages =
+          page === 1 ? response.results : [...images, ...response.results];
+        setImages(newImages);
       } catch (error) {
         console.error(error);
         setIsError(true);
@@ -32,17 +34,24 @@ function App() {
     fetchImagesData();
   }, [query, page]);
 
-  const handleChnageQuery = (newQuery) => {
-    setQuery(newQuery);
-    setPage(1);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const inputQuery = form.query.value;
+    if (inputQuery !== query) {
+      setQuery(inputQuery);
+      setPage(1);
+      form.reset();
+    }
   };
+
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
   };
 
   return (
     <div>
-      <SearchBar onChangeQuery={handleChnageQuery} />
+      <SearchBar onSubmit={handleSubmit} />
       {isLoading && <Loader />}
       <ImageGallery img={images} />
       {isError && <ErrorMessage />}
